@@ -1,4 +1,4 @@
-import { INDIFLIX_SERVICE } from '../../api';
+import { INDIFLIX_SERVICE } from "../../api";
 
 const login = async (payload) => {
     return await INDIFLIX_SERVICE.post("/users/login", payload);

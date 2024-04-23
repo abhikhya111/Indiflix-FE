@@ -18,17 +18,20 @@ destination:function(req,file,cd)
     //console.log('---------------------'+__dirname);
     //console.log(file.fieldname);
     
+
+    process.env.BASE_PATH 
+
     if(file.fieldname==='certificationFiles')
     {
-    cd(null,path.join('D:/BackendApr7/assets/movies/certificationfiles'));
+    cd(null,path.join(process.env.BASE_PATH +'assets/movies/certificationfiles'));
     }
     else if(file.fieldname==='videofile')
     {
-        cd(null,path.join('D:/BackendApr7/assets/movies'));   
+        cd(null,path.join(process.env.BASE_PATH+'assets/movies'));   
     } 
     else if(file.fieldname==='videoposter')
     {
-        cd(null,path.join('D:/BackendApr7/assets/movies/poster'));       
+        cd(null,path.join(process.env.BASE_PATH+'assets/movies/poster'));       
     }  
 },
 filename:function(req,file,cd)
@@ -63,7 +66,7 @@ router.get("/random/all",getRandomMovies);
 router.post("/movie",uploade,insertMovie);
 
 router.put("/movie", uploade ,updateMovie);
-router.delete("/movie",deleteMovie);
+router.delete("/movie/:id",deleteMovie);
 
 
 //**************** PRIVATE ROUTE **************//

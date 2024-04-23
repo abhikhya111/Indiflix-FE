@@ -2,6 +2,8 @@ import { MoviesData } from "../Data/MoviesData.js";
 import asyncHandler from "express-async-handler";
 import Movie from "../Models/MoviesModel.js"
 
+//import Contentypedurationprice from "../Models/ContentypedurationpriceModel.js"
+
  export const importMovies = asyncHandler(async(req,res) =>{
     await Movie.deleteMany({});
     const  movies =await Movie.insertMany(MoviesData);
@@ -46,7 +48,6 @@ export const getMovies = asyncHandler(async(req,res)=>{
     }
 
 })
-
 
  //@desc get movies by id
  // GET /api/movies/:id
@@ -161,7 +162,6 @@ export const insertMovie = asyncHandler(async(req,res)=>{
         {
             res.status(404);
             throw new Error("Movie is already exist");
-            
         }   
         else
         {  
@@ -178,15 +178,13 @@ export const insertMovie = asyncHandler(async(req,res)=>{
                 language:req.body.language,
                 dubbing:req.body.dubbing,
                 genre:req.body.genre,
-                
+                contentType_duration_resolution_priceEvery3Months:req.body.contentType_duration_resolution_priceEvery3Months,
                 inCertified:req.body.inCertified,
                 cetrificationName:req.body.cetrificationName,
                 
-                language:req.body.language,
-                
-                videofile:req.files.videofile[0].filename,
-                certificationFiles:req.files.certificationFiles[0].filename,
-                videoposter:req.files.videoposter[0].filename,
+                videofile:process.env.MOVIE_VIDEO_PATH+req.files.videofile[0].filename,
+                certificationFiles:process.env.CERTIFICATE_FILE_PATH+req.files.certificationFiles[0].filename,
+                videoposter:process.env.MOVIE_POSTER_PATH+req.files.videoposter[0].filename,
 
                 stars:req.body.stars,
                 numberofReviews:req.body.numberofReviews
@@ -244,9 +242,9 @@ export const updateMovie = asyncHandler(async(req,res)=>{
             movie.cetrificationName=req.body.cetrificationName || movie.cetrificationName;
             
             
-            movie.videofile=req.files.videofile[0].filename || movie.videofile
-            movie.certificationFiles=req.files.certificationFiles[0].filename || movie.certificationFiles;
-            movie.videoposter=req.files.videoposter[0].filename || movie.videoposter;
+            movie.videofile=process.env.MOVIE_VIDEO_PATH+req.files.videofile[0].filename || movie.videofile
+            movie.certificationFiles=process.env.CERTIFICATE_FILE_PATH+req.files.certificationFiles[0].filename || movie.certificationFiles;
+            movie.videoposter=process.env.MOVIE_POSTER_PATH+req.files.videoposter[0].filename || movie.videoposter;
             
             
             movie.language=req.body.language || movie.language;
@@ -281,12 +279,12 @@ export const deleteMovie = asyncHandler(async(req,res)=>{
 
       
 
-        console.log(req.body.id);
+       // console.log(req.body.id);
 
         //const movie =await Movie.findById(req.body.id);
-        const del_Data=await Movie.deleteOne({_id:req.body.id});
+        const del_Data=await Movie.deleteOne({_id:req.params.id});
 
-        console.log(del_Data);
+        //console.log(del_Data);
 
         if(del_Data){
            

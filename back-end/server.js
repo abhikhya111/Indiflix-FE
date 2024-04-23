@@ -12,6 +12,7 @@ import { updateProfile } from "./Controllers/UserControllers.js";
 import path from "path";
 import crypto from "crypto";
 import Razorpay from "razorpay";
+import reviewRouter from "./Routes/ReviewRouter.js";
 //import bodyParser from "body-parser";
 
 dotenv.config();
@@ -48,6 +49,12 @@ app.use('/api/get-image/:imageName', (req, res) => {
 app.use("/api/users", userRouter);
 app.put("/api/users/profile", upload.fields([{ name: "image", maxCount: 1 }, { name: "productionHouseDocument", maxCount: 1 }]), updateProfile);
 app.use("/api/movies", moviesRouter);
+app.use("/api/review",reviewRouter);
+app.use('/image_poster',express.static(process.env.BASE_PATH +'assets/movies/poster'));
+
+app.use('/videofile',express.static(process.env.BASE_PATH +'assets/movies'));
+
+app.use('/certificationfiles',express.static(process.env.BASE_PATH +'assets/movies/certificationfiles'));
 
 app.use(errorHandler);
 

@@ -35,7 +35,7 @@ function App() {
   Aos.init();
   return (
     <>
-    <button className="btn btn-primary" onClick={paymentHandler}>Pay Now</button>
+    {/* <button className="btn btn-primary" onClick={paymentHandler}>Pay Now</button> */}
       <Routes>
         <Route path="/login" element={Object.keys(userDetail).length > 0 ? <Navigate to="/" /> : <Login />} />
       </Routes>

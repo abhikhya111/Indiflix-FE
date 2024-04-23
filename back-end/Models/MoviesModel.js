@@ -50,6 +50,7 @@ const moviesSchema = mongoose.Schema({
     genre: {
         type: String,
     },
+	
     inCertified: {
         type: String,
     },
@@ -73,13 +74,27 @@ const moviesSchema = mongoose.Schema({
         //rquired:true,
     },
 	
+	is_buy: {
+        type: Boolean,
+        default: false,
+    },
+	
+	
 	
     stars: {
         type: Number,
         rquired: true,
         default: 0
     },
-    numberofReviews: {
+    
+	contentType_duration_resolution_priceEvery3Months: {
+        type: String,
+        rquired:true,
+    },
+	 
+	
+	
+	numberofReviews: {
         type: Number,
         rquired: true,
         default: 0
