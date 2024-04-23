@@ -1,18 +1,10 @@
-
 import React, { Fragment, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../Dashboard/SideBar";
 import { Listbox, Transition } from "@headlessui/react";
 import { FaAngleDown, FaCheck } from "react-icons/fa";
 import { priceList, movieBuyList } from "./PriceListMenu";
-import { FiLogIn } from "react-icons/fi";
-import axios from "axios";
-
-
-
 
 const AddMovie = () => {
-  const navigate = useNavigate();
   const Genre = [
     { title: "<---Select Genre--->" },
     { title: "Action & Adventure" },
@@ -68,64 +60,6 @@ const AddMovie = () => {
     alert("We highly recommend to extend reachability");
   };
 
-
-    const data={contentType:"",userId:"66091b537d3ff707764047b8",name:"",videoQuality:"",desc:"",audioQuality:"",language:"",inCertified:"",cetrificationName:"",is_buy:"",certificationFiles:"",videofile:"",videoposter:""};
-    const [ inputData , setInputdata ]=useState(data)
-    const handleData=(e)=>{
-     
-      if(!e.target.files)
-      {
-      
-      console.log(e.target.value);
-        setInputdata({ ...inputData, [e.target.name]:e.target.value })
-      //formData.append(e.target.name,e.target.value);
-      } 
-      else
-      {
-        setInputdata({ ...inputData,[e.target.name]:e.target.files[0] })
-        //formData.append(e.target.name,e.target.files[0]);
-        //console.log(e.target.files[0]);
-      }  
-    }
-
-
-   
-
-    //blob
-
-    const handleSubmit=(e)=>{
-
-
-        e.preventDefault();
-        
-        //const formData=new FormData()
-        //formData.append()
-        console.log(inputData);
-
-        let axiosConfig = {
-          headers: {
-            "Content-Type": "multipart/form-data",
-              "Access-Control-Allow-Origin": "*",
-          }
-        };
-
-
-        axios.post('http://localhost:5000/api/movies/movie',inputData,axiosConfig )
-        .then((Response )=>{
-
-          //console.log(Response);
-          
-          navigate("/movieslist");  
-
-          //this.props.history.replace('/movieslist');
-         
-        })
-       //const navigate = useNavigate();
-        
-
-    }
-
-
   return (
     <div>
       <SideBar>
@@ -141,55 +75,15 @@ const AddMovie = () => {
                 <input
                   type="radio"
                   id={item}
-                  name="contentType"
-                  value={item}
-                  checked={inputData.contentType === item}
-                  onChange={handleData}
+                  name="options"
+                  value={item} // Assuming 'value' is the property of the object representing the option
                 />
                 <label htmlFor={item} className="ms-3 me-5">
                   {item}
-                </label>
+                </label>{" "}
               </div>
             ))}
           </div>
-
-
-          <div className="flex">
-          
-          <input
-            className="w-full text-sm mt-2 p-5 border border-border rounded text-white bg-main"
-            type="Hidden"
-            name="userId"
-            value="66091b537d3ff707764047b8"
-           
-           
-
-          />
-
-
-
-          </div>   
- 
-
-          <label>Movie Name</label>
-          <div className="flex">
-          
-          <input
-            className="w-full text-sm mt-2 p-5 border border-border rounded text-white bg-main"
-            label="text"
-            placeholder="Movie Name"
-            type="text"
-            name="name"
-            value={inputData.name}
-            onChange={handleData}
-            
-         
-          />
-
-
-
-          </div>   
-
 
           <label className="mt-4">2. Please select the quality of Video</label>
           <div className="flex">
@@ -198,35 +92,15 @@ const AddMovie = () => {
                 <input
                   type="radio"
                   id={item}
-                  name="videoQuality"
+                  name="options"
                   value={item} // Assuming 'value' is the property of the object representing the option
-                  checked={inputData.videoQuality === item}
-                  onChange={handleData} 
                 />
                 <label htmlFor={item} className="ms-3 me-5">
                   {item}
-                </label>
+                </label>{" "}
               </div>
             ))}
           </div>
-
-
-          <label>Description</label>
-          <div className="flex">
-          
-         
-         <textarea
-         
-         className="w-full text-sm mt-2 p-5 border border-border rounded text-white bg-main"
-            label="text"
-            name="desc"
-            onChange={handleData} 
-         
-         >{inputData.desc}</textarea>
-          </div>   
-      
-
-
 
           <label className="mt-4">3. Please select Audio quality</label>
           <div className="flex">
@@ -235,10 +109,8 @@ const AddMovie = () => {
                 <input
                   type="radio"
                   id={item}
-                  name="audioQuality"
+                  name="options"
                   value={item} // Assuming 'value' is the property of the object representing the option
-                  onChange={handleData}
-                  checked={inputData.audioQuality === item} 
                 />
                 <label htmlFor={item} className="ms-3 me-5">
                   {item}
@@ -307,10 +179,9 @@ const AddMovie = () => {
                   <input
                     type="radio"
                     id={item}
-                    name="language"
+                    name="options"
                     value={item}
-                    onChange={handleData}
-                    checked={inputData.language === item} 
+                    onClick={selectLangaugeHandler}
                   />
                   <label htmlFor="yes" className="ms-3 me-5">
                     {item}
@@ -325,10 +196,7 @@ const AddMovie = () => {
             {boardType.map((item, index) => {
               return (
                 <div>
-                  <input type="radio" id={item} name="inCertified" value={item} 
-                  onChange={handleData} 
-                  checked={inputData.inCertified === item} 
-                  />
+                  <input type="radio" id={item} name="options" value={item} />
                   <label htmlFor="yes" className="ms-3 me-5">
                     {item}
                   </label>
@@ -337,49 +205,12 @@ const AddMovie = () => {
             })}
           </div>
 
-
-
-          <label>Certification Name</label>
-          <div className="flex">
-          
-          <input
-            className="w-full text-sm mt-2 p-5 border border-border rounded text-white bg-main"
-            label="text"
-            placeholder="Certification Name"
-            type="text"
-            name="cetrificationName"
-            value={inputData.cetrificationName}
-            onChange={handleData}
-         
-          />
-          </div>       
-
-         
-
-
-          <label>Upload Certification File</label>
-          <div className="flex">
-          
-          <input
-            className="w-full text-sm mt-2 p-5 border border-border rounded text-white bg-main"
-            label="text"
-            
-            type="file"
-            name="certificationFiles"
-            onChange={handleData}
-          />
-          </div>             
-
-
           {/* code for table 1 */}
 
           <div className="overflow-x-auto">
             <table className="table-auto w-full">
               <thead>
                 <tr>
-                <th className="border border-black px-4 py-2 text-left border-separate border-spacing-2 border border-slate-600 text-black bg-gray-100">                  
-                  
-                </th>
                   <th className="border border-black px-4 py-2 text-left border-separate border-spacing-2 border border-slate-600 text-black bg-gray-100">
                     Content Type
                   </th>
@@ -397,15 +228,6 @@ const AddMovie = () => {
               <tbody>
                 {priceList.map((item, index) => (
                   <tr key={index}>
-                    <td className="border border-black px-4 py-2 text-left border-separate border-spacing-1 border border-slate-600">
-                    <input
-                    type="radio"
-                    name="content_type_duration"
-                    value={item["Content Type"]+'|'+item["Duration (mins)"]+'|'+item["Resolution"]+'|'+item["Price every 3 months"]}
-                    onChange={handleData}
-                    checked={inputData.content_type_duration === item["Content Type"]+'|'+item["Duration (mins)"]+'|'+item["Resolution"]+'|'+item["Price every 3 months"]} 
-                  />
-                    </td>
                     <td className="border border-black px-4 py-2 text-left border-separate border-spacing-1 border border-slate-600">
                       {item["Content Type"]}
                     </td>
@@ -431,10 +253,7 @@ const AddMovie = () => {
             {boardType.map((item, index) => {
               return (
                 <div>
-                  <input type="radio" id={item} name="is_buy" value={item}
-                  checked={inputData.is_buy === item} 
-                  onChange={handleData}
-                  />
+                  <input type="radio" id={item} name="options" value={item} />
                   <label htmlFor="yes" className="ms-3 me-5">
                     {item}
                   </label>
@@ -442,38 +261,6 @@ const AddMovie = () => {
               );
             })}
           </div>
-
-        
-          <label>Upload Video</label>
-          <div className="flex">
-          
-          <input
-            className="w-full text-sm mt-2 p-5 border border-border rounded text-white bg-main"
-            label="text"
-            
-            type="file"
-            name="videofile"
-            
-            onChange={handleData}
-          />
-          </div>             
-    
-          <label>Upload Video Poster </label>
-          <div className="flex">
-          
-          <input
-            className="w-full text-sm mt-2 p-5 border border-border rounded text-white bg-main"
-            label="text"
-            
-            type="file"
-            name="videoposter"
-           
-            onChange={handleData}
-          />
-          </div>                 
-
-          
-
 
           {/* code for table 2 */}
 
@@ -515,18 +302,6 @@ const AddMovie = () => {
               </tbody>
             </table>
           </div>
-
-          <Link
-            className="bg-subMain transitions hover:bg-main flex-rows gap-4 text-white p-4 rounded-lg w-full"
-            onClick={handleSubmit}
-          >
-            <FiLogIn />
-            Submit
-          </Link>     
-
-
-
-
         </div>
       </SideBar>
     </div>

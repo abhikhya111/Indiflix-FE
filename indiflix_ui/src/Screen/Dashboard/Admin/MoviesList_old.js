@@ -1,35 +1,9 @@
-
-import React, {  useState,useEffect } from "react";
-//import React from "react";
+import React from "react";
 import SideBar from "../SideBar";
 import Table from "../../../Components/Table";
-
-//import imageSrc from './assets/movies/poster';
-
 import { Movies } from "../../../Data/MovieData";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-
-//const AddMovie = () => {}
 
 function MoviesList() {
-	
-
-
-  const [myData,setMydata]= useState([]);
-   useEffect(()=>{
-    
-    axios.get('http://localhost:5000/api/movies/random/all' )
-    .then((res )=>setMydata(res.data))
-
-
-},[]);
-
-
-
-
-//console.log(myData);
-	
   return (
     <SideBar>
       <div className="flex flex-col gap-6">
@@ -39,7 +13,7 @@ function MoviesList() {
             Delete All
           </button>
         </div>
-        <Table data={myData} admin={true} />
+        <Table data={Movies} admin={true} />
       </div>
     </SideBar>
   );

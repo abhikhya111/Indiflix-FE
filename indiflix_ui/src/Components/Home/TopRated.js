@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Titles from "../Titles";
 import { Movies } from "../../Data/MovieData";
 import {
@@ -11,7 +11,21 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Rating from "../Stars";
+
+import axios from "axios";
+
+
 function TopRated() {
+
+  const [myData,setMydata]= useState([]);
+  useEffect(()=>{
+   axios.get('http://localhost:5000/api/movies/rated/top' )
+   .then((res )=>setMydata(res.data))
+},[]);
+
+
+
+
   const [nextEl, setNextEl] = useState(null);
   const [prevEl, setPrevEl] = useState(null);
   const classNames =
@@ -47,11 +61,11 @@ function TopRated() {
             loop={true}
             modules={[Navigation, Autoplay]}
           >
-            {Movies.map((movie, index) => (
+            {myData.map((movie, index) => (
               <SwiperSlide key={index}>
                 <div className="p-4 h-rate hovered border border-border bg-dry rounded-lg overflow-hidden">
                   <img
-                    src={`${movie.titleImage}`}
+                    src={`${movie.videoposter}`}
                     alt={movie.name}
                     className="w-full h-full object-cover rounded-lg"
                   />
@@ -61,7 +75,7 @@ function TopRated() {
                     </button>
                     <Link
                       className="font-semibold text-xl trancuted line-clamp-2"
-                      to={`/movies/${movie.name}`}
+                      to={`/movies/${movie._id}`}
                     >
                       {movie.name}
                     </Link>

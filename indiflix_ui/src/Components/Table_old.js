@@ -3,30 +3,6 @@ import { FaCloudDownloadAlt, FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { GoEye } from "react-icons/go";
-import axios from "axios";
-
-const deleteHandlar=(id,e)=>{
-  //console.log(id);
-  
-  const shouldRemove = window.confirm("are you sure you want to delete?")
-
-  if (shouldRemove) {
-  
-      axios
-          .delete(`http://localhost:5000/api/movies/movie/${id}`)
-          .then((Response)=>
-        {  //console.log(Response); 
-          window.location.reload();
-        
-        })
-        .catch((error)=>{ console.log(error); })
-  
-  }
-
-
-  };
-  
-
 
 const Head = "text-xs text-left text-main font-semibold px-6 py-2 uppercase";
 const Text = "text-sm text-left leading-6 whitespace-nowrap px-5 py-3";
@@ -37,23 +13,23 @@ const Rows = (movie, i, admin) => {
         <div className="w-12 p-1 bg-dry border border-borderh-12 rounded overflow-hidden">
           <img
             className="h-full w-full rounded-full object-cover"
-            src={movie.videoposter}
+            src={movie.titleImage}
             alt={movie?.name}
           />
         </div>
       </td>
       <td className={`${Text} truncate`}>{movie.name}</td>
-      <td className={`${Text}`}>{movie.contentType}</td>
+      <td className={`${Text}`}>{movie.category}</td>
       <td className={`${Text}`}>{movie.language}</td>
-      <td className={`${Text}`}>{movie.cetrificationName}</td>
-      <td className={`${Text}`}>{movie.genre}</td>
+      <td className={`${Text}`}>{movie.year}</td>
+      <td className={`${Text}`}>{movie.time}</td>
       <td className={`${Text} float-right flex-rows gap-2`}>
         {admin ? (
           <>
             <button className="border border-border bg-dry flex-rows gap-2 text-border rounded py-1 px-2">
               Edit <FaEdit className="text-green-500" />
             </button>
-            <button className="bg-subMain text-white rounded flex-colo w-6 h-6" onClick={e=>deleteHandlar(movie._id,e)} >
+            <button className="bg-subMain text-white rounded flex-colo w-6 h-6">
               <MdDelete />
             </button>
           </>
@@ -96,11 +72,10 @@ function Table({ data, admin }) {
                 Language
               </th>
               <th scope="col" className={`${Head}`}>
-              Certification Name
-              
+                Year
               </th>
               <th scope="col" className={`${Head}`}>
-               Genre
+                Hours
               </th>
               <th scope="col" className={`${Head} text-end`}>
                 Actions

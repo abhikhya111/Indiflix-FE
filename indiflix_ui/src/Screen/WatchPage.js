@@ -1,23 +1,35 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Layout from "../Layout/Layout";
 import { Link, useParams } from "react-router-dom";
 import { Movies } from "../Data/MovieData";
 import { BiArrowBack } from "react-icons/bi";
 import { FaCloudDownloadAlt, FaHeart, FaPlay } from "react-icons/fa";
+import axios from "axios";
 function WatchPage() {
   let { id } = useParams();
-  const movie = Movies.find((movie) => movie.name === id);
+  
+  const [myData,setMydata]= useState([]);
+  useEffect(()=>{
+   axios.get('http://localhost:5000/api/movies/'+id)
+   .then((res )=>setMydata(res.data))
+
+  },[]);
+
+
+
+
+  //const movie = Movies.find((movie) => movie.name === id);
   const [play, setPlay] = useState(false);
   return (
     <Layout>
       <div className="container mx-auto bg-dry p-6 mb-12">
         <div className="flex-btn flex-wrap mb-6 gap-2 bg-main rounded border border-gray-800 p-6">
           <Link
-            to={`/movie/${movie?.name}`}
+            to={`/movie/${myData?._id}`}
             className="md:text-xl text-sm flex gap-3 items-center font-bold text-dryGray"
           >
             <BiArrowBack />
-            {movie?.name}
+            {myData?.name}
           </Link>
           <div className="flex-btn sm:w-auto w-full gap-5">
             <button className="bg-white hover:text-subMain tranitions bg-opacity-30 text-white rounded px-4 py-3 text-sm">
@@ -33,7 +45,7 @@ function WatchPage() {
       {/* watch video */}
       {play ? (
         <video controls autoPlay={play} className="w-full h-full rounded">
-          <source src={movie?.video} type="video/mp4" title={movie?.name} />
+          <source src={myData?.videofile} type="video/mp4" title={myData?.name} />
         </video>
       ) : (
         <div className="w-full h-screen rounded-lg overflow-hidden relative">
@@ -46,8 +58,8 @@ function WatchPage() {
             </button>
           </div>
           <img
-            src={movie?.image ? `${movie.image}` : "images/user.png"}
-            alt={movie?.name}
+            src={myData?.videoposter ? `${myData.videoposter}` : "images/user.png"}
+            alt={myData?.name}
             className="w-full h-full object-cover rounded-lg"
           />
         </div>

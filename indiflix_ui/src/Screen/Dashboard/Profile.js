@@ -4,8 +4,8 @@ import Uploader from "../../Components/Uploader";
 import { Input } from "../../Components/UsedInputs";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { AuthActions } from "../../store/auth_actions";
 import { useNavigate } from "react-router-dom";
+import { AuthActions } from "../../store/auth/auth_actions";
 
 function Profile() {
   const { userDetail } = useSelector(store => store.Auth);
