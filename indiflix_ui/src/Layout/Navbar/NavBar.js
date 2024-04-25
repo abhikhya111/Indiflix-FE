@@ -84,9 +84,11 @@ function NavBar() {
             <NavLink to="/contact-us" className={Hover}>
               Contact Us
             </NavLink>
-            <NavLink className={Hover} onClick={handleUserLogoClick}>
+            {Object.keys(userDetail).length ?<NavLink className={Hover} onClick={handleUserLogoClick}>
               <CgUser className="w-8 h-8" />
-            </NavLink>
+            </NavLink> : <NavLink to="/login" className={Hover}>
+              Login
+            </NavLink>}
             <NavLink to="/favorite" className={`${Hover} relative`}>
               <FaHeart className="w-6 h-6" />
               <div className="w-5 h-5 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-5 -right-1">

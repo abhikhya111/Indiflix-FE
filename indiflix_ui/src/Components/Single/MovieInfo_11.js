@@ -4,10 +4,10 @@ import { FaPlay, FaShareAlt } from "react-icons/fa";
 import { FiLogIn } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function MovieInfo({ movie }) {
@@ -22,9 +22,7 @@ function MovieInfo({ movie }) {
   return (
 
 <>
-<Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
+    
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -69,7 +67,7 @@ function MovieInfo({ movie }) {
                 <div className="flex-colo bg-subMain text-xs px-2 py-1">
                   {movie?.videoQuality}
                 </div>
-                {/* <FlexMovieItems movie={movie && movie} /> */}
+                <FlexMovieItems movie={movie && movie} />
               </div>
               {/* decription */}
               <p className="text-text text-sm leading-7">{movie?.desc}</p>
@@ -115,16 +113,22 @@ function MovieInfo({ movie }) {
           </div>
           <div class="col-span-4 md:grid grid-cols-6 gap-4 items-center">
           
-          <div class="flex-colo bg-black text-subMain px-50 py-5 rounded font-bold" > Rent  </div>
+          <div class="flex-colo bg-black text-subMain px-20 py-2 rounded font-bold" variant="primary" onClick={handleShow} >
+          Rent
+             </div>
 
-          <div class="flex-colo bg-black text-subMain px-50 py-5 rounded font-bold" > Buy  </div>
-
-          {/* <div class="bg-black text-subMain px-70 py-5 rounded font-bold" > More Purchase options  </div> */}
+          <div class="flex-colo bg-black text-subMain px-20 py-2 rounded font-bold" variant="primary" onClick={handleShow} >
+          Buy
+          </div>
+        
+          {/* <div class="flex-colo bg-black text-subMain px-20 py-2 rounded font-bold" variant="primary" onClick={handleShow} > 
+          More Purchase options
+          </div> */}
           
           </div> 
 
         
-          <div className="col-span-4 md:grid grid-cols-6 gap-4 fs-6">
+          <div class="col-span-4 md:grid grid-cols-6 gap-4">
           Rentals included 30 days to start watching this video and 48 hours to finish once started.
           </div>
 

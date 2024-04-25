@@ -3,6 +3,7 @@ import Layout from "../../Layout/Layout";
 import heroImage from "../../assets/hero-image.png";
 import { MdOutlineHighQuality } from "react-icons/md";
 import "./index.scss";
+import { useNavigate } from "react-router-dom";
 
 const featuresData = [
     {
@@ -88,6 +89,11 @@ const contentWatchersBenefits = [
 ]
 
 function LandingPage() {
+    const navigate = useNavigate();
+    const handleGetStarted = () => {
+        navigate("/login");
+    }
+
     return (
         <>
             <Layout>
@@ -101,7 +107,7 @@ function LandingPage() {
                                 Discover a world of limitless entertainment with Indiflix, where every click opens the door to a diverse collection of movies, series, and originals. Immerse yourself in captivating stories, explore new genres, and embark on endless adventures, all from the comfort of your screen. Join us today and start your journey into the boundless realm of Indiflix.
                             </p>
                             <div>
-                                <button className="get-started-btn">Get Started</button>
+                                <button className="get-started-btn" onClick={handleGetStarted}>Get Started</button>
                             </div>
                         </div>
                         <div className="hero-right-section">
