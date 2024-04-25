@@ -5,8 +5,9 @@ import { CgUser, CgProfile } from "react-icons/cg";
 import { MdOutlineLogout } from "react-icons/md";
 import logo from "../../assets/logo2.png";
 import Popover from '@mui/material/Popover';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AlertDialog from "../../Components/Dialogs/AlertDialog";
+import { loginAuth } from "../../store/auth/auth_reducers";
 
 
 function NavBar() {
@@ -16,6 +17,7 @@ function NavBar() {
   const Hover = ({ isActive }) => (isActive ? "text-subMain" : hover);
   const { userDetail } = useSelector(store => store.Auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleUserLogoClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,7 +40,7 @@ function NavBar() {
   }
 
   const handleLogout = () => {
-    localStorage.clear();
+    dispatch(loginAuth({}));
     navigate("/login");
   }
 
@@ -84,7 +86,7 @@ function NavBar() {
             <NavLink to="/contact-us" className={Hover}>
               Contact Us
             </NavLink>
-            {Object.keys(userDetail).length ?<NavLink className={Hover} onClick={handleUserLogoClick}>
+            {Object.keys(userDetail).length ? <NavLink className={Hover} onClick={handleUserLogoClick}>
               <CgUser className="w-8 h-8" />
             </NavLink> : <NavLink to="/login" className={Hover}>
               Login
